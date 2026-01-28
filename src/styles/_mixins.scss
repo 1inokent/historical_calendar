@@ -1,0 +1,49 @@
+@use './variables' as v;
+
+@mixin flex-row($gap: 0, $align: center) {
+  display: flex;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin content-padding($x: 60px, $y: 40px) {
+  padding: $y $x;
+}
+
+@mixin center-lines($color: v.$border-color) {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: $color;
+    transform: translateX(-50%);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: $color;
+    transform: translateY(-50%);
+  }
+}
+
+@mixin stretch-svg {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+@mixin absolute($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}

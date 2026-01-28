@@ -1,3 +1,32 @@
+@use '../../styles/mixins' as m;
+@use '../../styles/variables' as v;
+
 .container {
-  display: flex;
+  position: relative;
+  margin: 30px;
+
+  border-left: 1px solid v.$border-color;
+  border-right: 1px solid v.$border-color;
+
+  @include m.center-lines;
+}
+
+.content {
+  @include m.content-padding;
+}
+
+.header {
+  position: relative;
+  @include m.flex-row(40px, stretch);
+}
+
+.icon {
+  @include m.absolute($left: -60px);
+  @include m.stretch-svg;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.1;
+  color: v.$default-text-color;
 }

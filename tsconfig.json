@@ -15,7 +15,7 @@
 
     "noEmit": false,
 
-    "types": ["react", "react-dom", "node"]
+    "types": ["react", "react-dom", "node"],
   },
   "include": ["src"]
 }
