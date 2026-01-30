@@ -2,11 +2,9 @@
 
 .wrapper {
   position: relative;
-  // flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  // min-height: 530px;
 
   &::after {
     content: '';
@@ -127,7 +125,21 @@
   color: v.$default-text-color;
   transition: opacity 0.3s ease;
 }
+.active {
+  width: 56px;
+  height: 56px;
+  background: v.$background-color;
+  border: 1px solid v.$border-color;
 
+  .number {
+    opacity: 1;
+  }
+
+  & + .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 .tooltip {
   padding: 5px;
   position: absolute;
