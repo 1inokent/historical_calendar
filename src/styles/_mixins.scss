@@ -1,0 +1,69 @@
+@use './variables' as v;
+
+@mixin flex-row($gap: 0, $align: center) {
+  display: flex;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin content-padding($x: 60px, $y: 0px) {
+  padding: $y $x;
+}
+
+@mixin stretch-svg {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+@mixin absolute($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin arrow-button {
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // border: 1px solid v.$border-color;
+  // border-radius: 50%;
+  // background: transparent;
+  // color: v.$default-text-color;
+  // cursor: pointer;
+  // transition: all 0.3s ease;
+
+  // &:hover {
+  //   background: v.$border-color;
+  // }
+
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid v.$border-color;
+  border-radius: 50%;
+  background: transparent;
+  color: v.$default-text-color;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: v.$border-color;
+  }
+
+  &.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}

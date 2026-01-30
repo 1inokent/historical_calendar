@@ -1,0 +1,157 @@
+@use '../../styles/variables' as v;
+@use '../../styles/mixins' as m;
+
+.container {
+  position: relative;
+  flex-shrink: 0;
+  padding: 80px 20px 40px 20px;
+
+  @media (max-width: 769px) {
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-top: 0;
+    border-top: 1px solid #c7cdd9;
+  }
+}
+
+.mobileNavigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.currentDate {
+  font-size: 14px;
+  color: v.$default-text-color;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.themeArrow {
+  @include m.arrow-button;
+  width: 40px;
+  height: 40px;
+}
+
+.themePagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: v.$default-text-color;
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+
+.swiperWrapper {
+  position: relative;
+}
+
+.swiper {
+  @media (max-width: 768px) {
+    overflow: hidden;
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+}
+
+.slide {
+  height: auto;
+}
+
+.event {
+  @media (max-width: 768px) {
+    padding: 20px 0;
+  }
+}
+
+.year {
+  margin: 0 0 15px 0;
+  font-size: 25px;
+  font-weight: 400;
+  color: #3877ee;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+  }
+}
+
+.description {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.5;
+  color: v.$default-text-color;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0.7;
+  }
+}
+
+.swiperButtonPrev,
+.swiperButtonNext {
+  display: none;
+
+  @media (min-width: 769px) {
+    @include m.arrow-button;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    background: v.$background-color;
+  }
+}
+
+.swiperButtonPrev {
+  left: -60px;
+}
+
+.swiperButtonNext {
+  right: -60px;
+}
+
+.swiperPagination {
+  position: static !important;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: auto !important;
+  margin-left: 30px;
+
+  :global {
+    .swiper-pagination-bullet {
+      width: 6px;
+      height: 6px;
+      background: v.$default-text-color;
+      opacity: 0.2;
+      margin: 0 !important;
+      transition: opacity 0.3s ease;
+
+      &.swiper-pagination-bullet-active {
+        opacity: 1;
+      }
+      @media (min-width: 769px) {
+        display: none;
+      }
+    }
+  }
+}

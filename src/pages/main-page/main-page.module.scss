@@ -1,0 +1,78 @@
+@use '../../styles/mixins' as m;
+@use '../../styles/variables' as v;
+
+.container {
+  position: relative;
+  min-height: 100vh;
+  margin: 0 50px;
+
+  border-left: 1px solid v.$border-color;
+  border-right: 1px solid v.$border-color;
+  box-sizing: border-box;
+
+  @include m.content-padding;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: v.$border-color;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+
+  @media (max-width: 769px) {
+    margin: 0 20px;
+    padding: 20px 15px;
+    border: none;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.content {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+
+  @media (max-width: 769px) {
+    min-height: calc(100vh - 120px);
+  }
+}
+
+.header {
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 70px;
+
+  @media (max-width: 769px) {
+    margin-bottom: 40px;
+  }
+}
+
+.icon {
+  @include m.absolute($left: -60px);
+  @include m.stretch-svg;
+
+  @media (max-width: 769px) {
+    display: none;
+  }
+}
+
+.title {
+  margin: 0;
+  line-height: 1.1;
+  color: v.$default-text-color;
+  font-size: 56px;
+
+  @media (max-width: 769px) {
+    font-size: 20px;
+  }
+}

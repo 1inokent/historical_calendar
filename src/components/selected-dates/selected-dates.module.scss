@@ -1,0 +1,148 @@
+@use '../../styles/variables' as v;
+
+.wrapper {
+  position: relative;
+  // flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // min-height: 530px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: -60px;
+    right: -60px;
+    top: 50%;
+    height: 1px;
+    background: v.$border-color;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 769px) {
+    max-height: 230px;
+    flex-direction: column;
+    padding: 70px 0 154px;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.datesDisplay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 100px;
+  pointer-events: none;
+
+  @media (max-width: 769px) {
+    position: static;
+    transform: none;
+    gap: 60px;
+    order: 1;
+  }
+}
+
+.dateStart,
+.dateEnd {
+  font-size: 200px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 769px) {
+    font-size: 56px;
+    font-weight: 700;
+  }
+}
+
+.dateStart {
+  color: #5d5fef;
+}
+
+.dateEnd {
+  color: #ef5da8;
+}
+
+.circle {
+  position: relative;
+  width: 530px;
+  height: 530px;
+  border: 1px solid v.$border-color;
+  border-radius: 50%;
+  z-index: 1;
+
+  @media (max-width: 769px) {
+    display: none;
+  }
+}
+
+.point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: v.$default-text-color;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    width: 56px;
+    height: 56px;
+    background: v.$background-color;
+    border: 1px solid v.$border-color;
+
+    .number {
+      opacity: 1;
+    }
+
+    & + .tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.number {
+  opacity: 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: v.$default-text-color;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip {
+  padding: 5px;
+  position: absolute;
+  top: -20px;
+  left: 40px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #42567a;
+  background: v.$background-color;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+  border: 1px solid v.$border-color;
+  border-radius: 10px;
+  visibility: hidden;
+}

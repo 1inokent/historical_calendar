@@ -10,7 +10,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 
 export default [
   {
-    ignores: ['node_modules', 'dist', 'build', 'webpack.config.js'],
+    ignores: ['node_modules', 'dist', 'build', 'webpack.config.js', '**/*.scss', '**/*.css'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
