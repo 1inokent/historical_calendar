@@ -1,6 +1,8 @@
+import DatesList from '../../components/dates-list/dates-list';
+import SelectedDates from '../../components/selected-dates/selected-dates';
 import styles from './main-page.module.scss';
 
-export function MainPage() {
+function MainPage() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -12,7 +14,12 @@ export function MainPage() {
             даты
           </h1>
         </div>
+
+        <SelectedDates />
+        <DatesList />
       </div>
     </div>
   );
 }
+
+export default MainPage;

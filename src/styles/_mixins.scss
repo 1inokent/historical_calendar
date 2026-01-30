@@ -6,32 +6,8 @@
   gap: $gap;
 }
 
-@mixin content-padding($x: 60px, $y: 40px) {
+@mixin content-padding($x: 60px, $y: 0px) {
   padding: $y $x;
-}
-
-@mixin center-lines($color: v.$border-color) {
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    background: $color;
-    transform: translateX(-50%);
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 1px;
-    background: $color;
-    transform: translateY(-50%);
-  }
 }
 
 @mixin stretch-svg {
@@ -46,4 +22,48 @@
   right: $right;
   bottom: $bottom;
   left: $left;
+}
+
+@mixin arrow-button {
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // border: 1px solid v.$border-color;
+  // border-radius: 50%;
+  // background: transparent;
+  // color: v.$default-text-color;
+  // cursor: pointer;
+  // transition: all 0.3s ease;
+
+  // &:hover {
+  //   background: v.$border-color;
+  // }
+
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid v.$border-color;
+  border-radius: 50%;
+  background: transparent;
+  color: v.$default-text-color;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: v.$border-color;
+  }
+
+  &.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
