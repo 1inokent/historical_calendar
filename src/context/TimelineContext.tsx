@@ -1,4 +1,3 @@
-// context/TimelineContext.tsx
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 
 import { mockTimelineData } from '../mock-data/timeline.mock';
@@ -8,6 +7,7 @@ interface TimelineContextType {
   data: TimelineData;
   activePeriodId: number;
   activePeriod: TimelinePeriod;
+  previousPeriodId: number | null;
   setActivePeriodId: (id: number) => void;
   goToNextPeriod: () => void;
   goToPreviousPeriod: () => void;
@@ -26,7 +26,13 @@ export function TimelineProvider({
   children,
   initialData = mockTimelineData,
 }: TimelineProviderProps) {
-  const [activePeriodId, setActivePeriodId] = useState(1);
+  const [activePeriodId, setActivePeriodIdState] = useState(1);
+  const [previousPeriodId, setPreviousPeriodId] = useState<number | null>(null);
+
+  const setActivePeriodId = (id: number) => {
+    setPreviousPeriodId(activePeriodId);
+    setActivePeriodIdState(id);
+  };
 
   const activePeriod = useMemo(
     () =>
@@ -59,13 +65,14 @@ export function TimelineProvider({
       data: initialData,
       activePeriodId,
       activePeriod,
+      previousPeriodId,
       setActivePeriodId,
       goToNextPeriod,
       goToPreviousPeriod,
       isFirstPeriod,
       isLastPeriod,
     }),
-    [activePeriodId, activePeriod, initialData, isFirstPeriod, isLastPeriod],
+    [activePeriodId, activePeriod, previousPeriodId, initialData, isFirstPeriod, isLastPeriod],
   );
 
   return <TimelineContext.Provider value={value}>{children}</TimelineContext.Provider>;

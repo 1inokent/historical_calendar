@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,10 +16,12 @@ function DatesList() {
     isLastPeriod,
     goToNextPeriod,
     goToPreviousPeriod,
+    previousPeriodId,
   } = useTimeline();
 
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const swiperRef = useRef<HTMLDivElement>(null);
 
   const currentPeriodIndex = data.periods.findIndex((p) => p.id === activePeriodId);
   const totalPeriods = data.periods.length;
@@ -27,6 +30,19 @@ function DatesList() {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
   };
+
+  useEffect(() => {
+    if (previousPeriodId === null || previousPeriodId === activePeriodId) return;
+
+    if (swiperRef.current) {
+      gsap.killTweensOf(swiperRef.current);
+      gsap.fromTo(
+        swiperRef.current,
+        { autoAlpha: 0, y: 12 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' },
+      );
+    }
+  }, [activePeriodId, previousPeriodId]);
 
   return (
     <div className={styles.container}>
@@ -56,8 +72,9 @@ function DatesList() {
         </div>
       </div>
 
-      <div className={styles.swiperWrapper}>
+      <div ref={swiperRef} className={styles.swiperWrapper}>
         <Swiper
+          key={activePeriodId}
           modules={[Navigation, Pagination]}
           spaceBetween={80}
           slidesPerView={3}
