@@ -3,49 +3,25 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useTimeline } from '../../context/TimelineContext';
 import styles from './dates-list.module.scss';
 
-interface DateEvent {
-  year: number;
-  description: string;
-}
-
-const events: DateEvent[] = [
-  {
-    year: 2015,
-    description:
-      '13 сентября — частное солнечное затмение, видимое в Южной Африке и части Антарктиды',
-  },
-  {
-    year: 2016,
-    description:
-      'Телескоп «Хаббл» обнаружил самую удалённую из всех обнаруженных галактик, получившую обозначение GN-z11',
-  },
-  {
-    year: 2017,
-    description:
-      'Компания Tesla официально представила первый в мире электрический грузовик Tesla Semi',
-  },
-  {
-    year: 2018,
-    description:
-      'Компания Tesla официально представила первый в мире электрический грузовик Tesla Semi',
-  },
-  {
-    year: 2019,
-    description:
-      'Компания Tesla официально представила первый в мире электрический грузовик Tesla Semi',
-  },
-  {
-    year: 2020,
-    description:
-      'Компания Tesla официально представила первый в мире электрический грузовик Tesla Semi',
-  },
-];
-
 function DatesList() {
+  const {
+    data,
+    activePeriod,
+    activePeriodId,
+    isFirstPeriod,
+    isLastPeriod,
+    goToNextPeriod,
+    goToPreviousPeriod,
+  } = useTimeline();
+
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  const currentPeriodIndex = data.periods.findIndex((p) => p.id === activePeriodId);
+  const totalPeriods = data.periods.length;
 
   const handleSlideChange = (swiper: SwiperType) => {
     setIsBeginning(swiper.isBeginning);
@@ -54,25 +30,32 @@ function DatesList() {
 
   return (
     <div className={styles.container}>
-      {/* Навигация для переключения тем */}
-      <div className={styles.mobileNavigation}>
-        <div className={styles.currentDate}>06/06</div>
+      <div className={styles.periodsNavigation}>
+        <div className={styles.periodsCount}>
+          {String(currentPeriodIndex + 1).padStart(2, '0')}/{String(totalPeriods).padStart(2, '0')}
+        </div>
+
         <div className={styles.controls}>
-          <button className={styles.themeArrow}>
+          <button
+            className={styles.themeArrow}
+            onClick={goToPreviousPeriod}
+            disabled={isFirstPeriod}
+          >
             <svg width="8" height="12" viewBox="0 0 8 12" fill="none">
               <path d="M7 1L2 6L7 11" stroke="currentColor" strokeWidth="2" />
             </svg>
           </button>
-          <button className={styles.themeArrow}>
+
+          <button className={styles.themeArrow} onClick={goToNextPeriod} disabled={isLastPeriod}>
             <svg width="8" height="12" viewBox="0 0 8 12" fill="none">
               <path d="M1 1L6 6L1 11" stroke="currentColor" strokeWidth="2" />
             </svg>
           </button>
+
           <div className={styles.swiperPagination}></div>
         </div>
       </div>
 
-      {/* Swiper с событиями */}
       <div className={styles.swiperWrapper}>
         <Swiper
           modules={[Navigation, Pagination]}
@@ -103,8 +86,8 @@ function DatesList() {
           }}
           className={styles.swiper}
         >
-          {events.map((event, i) => (
-            <SwiperSlide key={i} className={styles.slide}>
+          {activePeriod.events.map((event, index) => (
+            <SwiperSlide key={index} className={styles.slide}>
               <div className={styles.event}>
                 <h3 className={styles.year}>{event.year}</h3>
                 <p className={styles.description}>{event.description}</p>
@@ -113,7 +96,6 @@ function DatesList() {
           ))}
         </Swiper>
 
-        {/* Desktop стрелки */}
         <button className={`${styles.swiperButtonPrev} ${isBeginning ? styles.disabled : ''}`}>
           <svg width="8" height="12" viewBox="0 0 8 12" fill="none">
             <path d="M7 1L2 6L7 11" stroke="currentColor" strokeWidth="2" />

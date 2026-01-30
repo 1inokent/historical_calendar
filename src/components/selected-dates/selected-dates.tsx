@@ -42,6 +42,7 @@ function SelectedDates() {
           </div>
         ))}
       </div>
+      <div className={styles.mobileTooltip}>{activePeriod.category}</div>
     </div>
   );
 }
